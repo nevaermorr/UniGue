@@ -10,7 +10,7 @@ public class MapInspector : Editor {
 		DrawDefaultInspector();
 		if (GUILayout.Button("Regenerate")) {
 			Map map = (Map) target;
-			map.BuildMesh();
+			map.Start();
 		}
 	}
 }
