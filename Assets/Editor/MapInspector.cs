@@ -6,11 +6,11 @@ using System.Collections;
 public class MapInspector : Editor {
 	
 	public override void OnInspectorGUI() {
-		//base.OnInspectorGUI();
 		DrawDefaultInspector();
-		if (GUILayout.Button("Regenerate")) {
+		// Add button for re-genarating map
+		if (GUILayout.Button("Re-generate")) {
 			Map map = (Map) target;
-			map.Start();
+			map.Generate();
 		}
 	}
 }
