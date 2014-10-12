@@ -37,15 +37,7 @@ public class Map : MonoBehaviour {
 	}
 	
 	private void CreateTiles() {
-		tiles = MapGenerator.GenerateMap();
-	
-//		tiles = new Tile[sizeX, sizeZ];
-//		
-//		for (int x = 0; x < sizeX; x++) {
-//			for (int z = 0; z < sizeZ; z++) {
-//				tiles[x, z] = new Tile();
-//			}
-//		}
+		tiles = MapGenerator.GenerateMap();	
 	}
 	
 	public void BuildMesh() {
