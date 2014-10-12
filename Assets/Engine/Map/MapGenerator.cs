@@ -20,6 +20,7 @@ public class MapGenerator {
 		}
 		
 		AddRoomToTiles(tiles, new IntVector2(2, 3), new IntVector2(5, 7));
+		AddRoomToTiles(tiles, new IntVector2(12, 7), new IntVector2(18, 15));
 		
 		return tiles;
 	}
