@@ -5,19 +5,26 @@ using System.Collections;
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshCollider))]
 public class Map : MonoBehaviour {
+
+	public int sizeX;
+	public int sizeZ;
 	
-	public static Texture2D tileset;
-	public Texture2D tilest;
-
-	public int sizeX = 15;
-	public int sizeZ = 10;
-
 	public float tileSize = 1.0f; 
 	public int tileResolution;
 	
+	private Tile[,] _tiles;
+	public Tile[,] tiles {
+		get {
+			return _tiles;
+		}
+		set {
+			_tiles = value;
+			// Make sure that size of the map is updated
+			sizeX = _tiles.GetLength(0);
+			sizeZ = _tiles.GetLength(1);
+		}
 	
-	private Tile[,] tiles;
-	
+	}
 	
 	public void Start () {
 		Generate();
@@ -30,13 +37,15 @@ public class Map : MonoBehaviour {
 	}
 	
 	private void CreateTiles() {
-		tiles = new Tile[sizeX, sizeZ];
-		
-		for (int x = 0; x < sizeX; x++) {
-			for (int z = 0; z < sizeZ; z++) {
-				tiles[x, z] = new Tile();
-			}
-		}
+		tiles = MapGenerator.GenerateMap();
+	
+//		tiles = new Tile[sizeX, sizeZ];
+//		
+//		for (int x = 0; x < sizeX; x++) {
+//			for (int z = 0; z < sizeZ; z++) {
+//				tiles[x, z] = new Tile();
+//			}
+//		}
 	}
 	
 	public void BuildMesh() {
@@ -74,7 +83,7 @@ public class Map : MonoBehaviour {
 					normals[6 * tileNumber + i] = Vector3.up;
 				}
 				
-				Vector2[] uvCorners = tiles[x, z].getTextureUVCorners();
+				Vector2[] uvCorners = _tiles[x, z].getTextureUVCorners();
 				
 				//create uvs
 				uv[6 * tileNumber    ] = uvCorners[0];
