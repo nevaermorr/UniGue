@@ -1,7 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class MapGenerator {
+public class MapGenerator : MonoBehaviour {
+	
+	public Transform tilePrefab;
+	
 	public static Tile[,] GenerateMap(string id = "") {	
 		return GenerateMapTest();
 		// TODO add some means of choice here
@@ -15,7 +18,8 @@ public class MapGenerator {
 		// Initialize background
 		for (int x=0; x<sizeX; x++) {
 			for (int z=0; z<sizeZ; z++) {
-				tiles[x, z] = new Tile();
+//				tiles[x, z] = new Tile();
+//				Instantiate(tilePrefab, new Vector3(x, 0f, z), Quaternion.identity);
 			}
 		}
 		
