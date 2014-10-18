@@ -6,9 +6,6 @@ public class Map : MonoBehaviour {
 	public int sizeX;
 	public int sizeZ;
 	
-	public float tileSize = 1.0f; 
-	public int tileResolution;
-	
 	private Tile[,] _tiles;
 	public Tile[,] tiles {
 		get {
@@ -22,14 +19,15 @@ public class Map : MonoBehaviour {
 		}
 	}
 	
-	public GameObject tilePrefab;
-	public GameObject test;
-	
 	public void Start () {
 		Generate();
 	}
 	
+	private void LoadPrefabs() {
+	}
+	
 	public void Generate() {
+		// Dispose of unwanted tiles
 		DestroyTiles();
 		CreateTiles();
 	}
@@ -38,9 +36,17 @@ public class Map : MonoBehaviour {
 //		tiles = MapGenerator.GenerateMap();	
 		for (float x=0; x<sizeX; x++) {
 			for (float z=0; z<sizeZ; z++) {
-				GameObject tile = Instantiate(tilePrefab, new Vector3(x, 0f, z), Quaternion.identity)
+				GameObject tile = Instantiate(Resources.Load<GameObject>("Map/Tile"))
 					as GameObject;
 				tile.name = "Tile [" + x.ToString() + "," + z.ToString() + "]";
+				tile.transform.position = new Vector3(x, 0f, z);
+				
+				Tile tileScript = tile.GetComponent<Tile>();
+				tileScript.type = (int)Tile.types.floor;
+				// Build wall
+				if (x == 0 || z == 0 || x == sizeX-1 || z == sizeZ-1) {
+					tileScript.type = (int)Tile.types.wall;
+				}
 				
 				// Place properly in the hierarchy
 				tile.transform.parent = gameObject.transform;
